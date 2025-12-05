@@ -6,6 +6,7 @@ from logger import log_state, log_event
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 
 def main():
@@ -25,6 +26,8 @@ def main():
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
     AsteroidField()
+    shots = pygame.sprite.Group()
+    Shot.containers = (shots, updatable, drawable)
     QUIT_EVENT = getattr(pygame, "QUIT")
     while True:
         log_state()
