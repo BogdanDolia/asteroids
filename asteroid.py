@@ -19,6 +19,7 @@ class Asteroid(CircleShape):
     def split(self):
         if self.radius <= ASTEROID_MIN_RADIUS:
             self.kill()
+            self.create_explosion()
             return
         log_event("asteroid_split")
         velocity_1 = self.velocity.rotate(random.uniform(20, 50))
@@ -29,3 +30,10 @@ class Asteroid(CircleShape):
         asteroid_2 = Asteroid(self.position.x, self.position.y, new_radius)
         asteroid_2.velocity = -velocity_2
         self.kill()
+        self.create_explosion()
+
+    def create_explosion(self):
+        from explosion import Explosion
+        explosion = Explosion(self.position.x, self.position.y, self.radius)
+        if hasattr(Asteroid, 'explosions'):
+            Asteroid.explosions.add(explosion)
